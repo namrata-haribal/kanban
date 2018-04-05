@@ -1,6 +1,6 @@
-# kanban: The task is to build a simple kanban app using flask.
+# Building a kanban board: 
 
-The kanban app has four pages:
+The task is to build a simple kanban app using flask. The app has four pages:
 
 1) The welcome or main page.
 2) The sign up page.

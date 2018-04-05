@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Kanban Board Page</title>
+</head>
+<body>
+    <h1> Welcome to your Kanban board!</h1>
+    <!--This is the to-do section.-->
+    <div>
+        <h2> To Do</h2>
+        <h3> Items to do:</h3>
+        <form action="{{ url_for('add_todo') }}" method="POST">
+            <input type="text" name="todoitem">
+            <input type="submit" value="Add Item">
+        </form>
+        <ul>
+            {% for item in todo %}
+            <li style="font-size: 15pt"> {{ item.task }}
+                <a href="{{ url_for('move_to_doing', id=item.id) }}" value="{{item.id}}"> Move to doing. </a> or
+                <a href="{{ url_for('move_to_done', id=item.id) }}" value="{{item.id}}">Move to done.</a> or
+                <a href="{{ url_for('delete', id=item.id) }}" value="{{item.id}}" method="POST"> Delete task altogether.</a>
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+     <!--This is the doing section.-->
+    <div>
+        <h2> Doing</h2>
+        <h3> Items currently being done:</h3>
+
+         <form action="{{ url_for('add_doing') }}" method="POST">
+            <input type="text" name="todoitem">
+            <input type="submit" value="Add Item">
+        </form>
+
+        <ul>
+            {% for item in doing %}
+            <li style="font-size: 15pt">{{ item.task }}
+                <a href="{{ url_for('move_to_todo', id=item.id) }}" value="{{item.id}}"> Move to todo.</a> or
+                <a href="{{ url_for('move_to_done', id=item.id) }}" value="{{item.id}}">Move to done.</a> or
+                <a href="{{ url_for('delete', id=item.id) }}" value="{{item.id}}" method="POST"> Delete task altogether.</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    <!--This is the done section.-->
+    <div>
+        <h2> Done </h2>
+        <h3> Items already done:</h3>
+            <!--This adds items to the done division-->
+
+           <form action="{{ url_for('add_done') }}" method="POST">
+            <input type="text" name="todoitem">
+            <input type="submit" value="Add Item">
+        </form>
+
+        <ul>
+            <!--This moves items from the done division to any of the other divisions.-->
+            {% for item in done %}
+            <li style="font-size: 15pt">{{ item.task }}
+                <a href="{{ url_for('move_to_todo', id=item.id) }}" value="{{item.id}}"> Move to todo.</a> or
+                <a href="{{ url_for('move_to_doing', id=item.id) }}" value="{{item.id}}"> Move to doing. </a> or
+                <a href="{{ url_for('delete', id=item.id) }}" value="{{item.id}}" method="POST"> Delete task altogether.</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <h4> Don't forget to log out when you are done! <a href=/logout> Click here to log out. </a></h4>
+</body>
+</html>
